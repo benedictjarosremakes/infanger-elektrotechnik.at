@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infanger Elektrotechnik | Steyr-Land</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <style>
+        :root {
+            /* Colors */
+            --color-bg: #F8F9FA;
+            --color-surface: #FFFFFF;
+            --color-text: #1A1D20;
+            --color-text-muted: #6C757D;
+            --color-accent: #812273;
+            --color-accent-light: #a93b98;
+            --color-highlight: #E9ECEF;
+            --color-footer-bg: #111315;
+            
+            /* Typography */
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 1.8vw, 1rem);
+            --text-base: clamp(1rem, 2vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 2.5vw, 1.375rem);
+            --text-xl: clamp(1.375rem, 3vw, 1.75rem);
+            --text-2xl: clamp(1.75rem, 4vw, 2.5rem);
+            --text-3xl: clamp(2.25rem, 5vw, 3.5rem);
+            --text-4xl: clamp(3rem, 7vw, 4.5rem);
+            
+            /* Spacing */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-6: 1.5rem;
+            --space-8: 2rem;
+            --space-12: 3rem;
+            --space-16: 4rem;
+            --space-24: 6rem;
+            --section-padding: clamp(4rem, 10vw, 8rem);
+            
+            /* Z-Index */
+            --z-base: 0;
+            --z-raised: 10;
+            --z-dropdown: 100;
+            --z-modal: 9000;
+            --z-toast: 9500;
+        }
+
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            font-size: 100%;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, .logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            color: var(--color-text);
+        }
+
+        h1 { font-size: var(--text-4xl); }
+        h2 { font-size: var(--text-3xl); margin-bottom: var(--space-6); }
+        h3 { font-size: var(--text-xl); margin-bottom: var(--space-3); }
+        
+        p { margin-bottom: var(--space-4); }
+        p:last-child { margin-bottom: 0; }
+
+        .text-muted { color: var(--color-text-muted); }
+        .text-sm { font-size: var(--text-sm); }
+
+        /* Layout */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 var(--space-6);
+        }
+
+        section {
+            padding: var(--section-padding) 0;
+        }
+
+        /* Icons */
+        [data-lucide] {
+            display: inline-block;
+            vertical-align: middle;
+            flex-shrink: 0;
+            line-height: 1;
+            pointer-events: none;
+            stroke-width: 1.5;
+        }
+
+        .icon-text {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5em;
+            padding: 0.875rem 1.75rem;
+            font-weight: 600;
+            font-size: var(--text-base);
+            border-radius: 2px;
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: var(--z-raised);
+        }
+
+        .btn-primary {
+            background-color: var(--color-accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-accent-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--color-highlight);
+            background-color: var(--color-surface);
+            color: var(--color-text);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-text);
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-accent);
+            color: white;
+            padding: 8px;
+            z-index: 9999;
+            transition: top 0.2s;
+        }
+        .skip-link:focus { top: 0; }
+
+        /* Header & Navigation */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            background-color: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--color-highlight);
+            height: 5rem;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            position: relative;
+        }
+
+        .logo {
+            font-size: var(--text-2xl);
+            letter-spacing: -0.04em;
+        }
+
+        .desktop-nav {
+            display: none;
+            align-items: center;
+            gap: var(--space-8);
+        }
+
+        .desktop-nav a {
+            font-weight: 500;
+            font-size: var(--text-sm);
+        }
+
+        .desktop-nav a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Mobile Navigation Rules */
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: var(--color-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-6);
+        }
+
+        .mobile-nav-links a {
+            font-size: var(--text-2xl);
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+
+        .nav-toggle {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1002;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--color-text);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-toggle.is-active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        .nav-toggle.is-active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .nav-toggle.is-active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        @media (min-width: 769px) {
+            .desktop-nav { display: flex; }
+            .nav-toggle { display: none; pointer-events: none; }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: calc(5rem + var(--space-16));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-12);
+            align-items: center;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-subhead {
+            font-size: var(--text-lg);
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-8);
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            height: 500px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .hero-image-wrapper {
+                height: 600px;
+            }
+        }
+
+        /* Services Grid */
+        .services-bg {
+            background-color: var(--color-surface);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-6);
+            margin-top: var(--space-12);
+        }
+
+        .service-card {
+            background: var(--color-bg);
+            padding: var(--space-8);
+            border: 1px solid var(--color-highlight);
+            border-radius: 2px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+        }
+
+        .service-icon {
+            color: var(--color-accent);
+            margin-bottom: var(--space-6);
+        }
+
+        @media (min-width: 640px) {
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .services-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        /* Split Sections (Zig-Zag) */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-12);
+            align-items: center;
+        }
+
+        .split-image {
+            height: 400px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .split-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .split-content ul {
+            margin-top: var(--space-6);
+        }
+
+        .split-content li {
+            position: relative;
+            padding-left: var(--space-6);
+            margin-bottom: var(--space-3);
+        }
+
+        .split-content li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.6em;
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-accent);
+            border-radius: 50%;
+        }
+
+        @media (min-width: 768px) {
+            .split-section { grid-template-columns: 1fr 1fr; }
+            .split-section.reverse .split-content { order: -1; }
+            .split-image { height: 500px; }
+        }
+
+        /* Testimonial */
+        .testimonial-section {
+            background-color: var(--color-surface);
+            border-top: 1px solid var(--color-highlight);
+            border-bottom: 1px solid var(--color-highlight);
+            text-align: center;
+        }
+
+        .testimonial-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stars {
+            height: 24px;
+            margin: 0 auto var(--space-6);
+            object-fit: contain;
+        }
+
+        .quote {
+            font-family: var(--font-heading);
+            font-size: var(--text-2xl);
+            font-weight: 500;
+            line-height: 1.3;
+            margin-bottom: var(--space-6);
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: var(--color-footer-bg);
+            color: #fff;
+            padding: clamp(4rem, 8vw, 7rem) 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-12);
+            margin-bottom: var(--space-12);
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-6);
+        }
+
+        .footer-text {
+            color: #A0AAB2;
+            margin-bottom: var(--space-4);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+            margin-bottom: var(--space-4);
+            color: #A0AAB2;
+        }
+
+        .footer-contact-item i {
+            color: var(--color-accent-light);
+            margin-top: 0.2rem;
+        }
+
+        .wko-badge {
+            height: 40px;
+            margin-top: var(--space-6);
+            opacity: 0.8;
+            filter: grayscale(1) brightness(2);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: var(--space-6);
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            color: #A0AAB2;
+            font-size: var(--text-xs);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-6);
+        }
+
+        .footer-links button {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid { grid-template-columns: repeat(3, 1fr); }
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+        }
+
+        /* Modals & Overlays */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(17, 19, 21, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: var(--z-modal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-4);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-backdrop.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-card {
+            background: var(--color-surface);
+            width: 100%;
+            max-width: 480px;
+            padding: var(--space-8);
+            border-radius: 4px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-backdrop.is-open .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            color: var(--color-text-muted);
+            padding: var(--space-2);
+        }
+
+        .modal-close:hover {
+            color: var(--color-accent);
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--color-surface);
+            padding: var(--space-6);
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.05);
+            z-index: var(--z-toast);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 1px solid var(--color-highlight);
+        }
+
+        .cookie-banner.is-visible {
+            transform: translateY(0);
+        }
+
+        .cookie-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .cookie-actions {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        @media (min-width: 768px) {
+            .cookie-content {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- DEMO NOTICE BANNER - benedictjaros.com -->
+<style>
+#__demo_spacer{display:block;}
+#__demo_notice,#__demo_notice *{box-sizing:border-box;margin:0;padding:0;}
+#__demo_notice{
+  position:fixed;top:0;left:0;right:0;z-index:99999;
+  background:rgba(9,9,11,.97);
+  backdrop-filter:blur(14px) saturate(160%);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  font-family:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+#__demo_inner{
+  max-width:1280px;margin:0 auto;
+  padding:0 44px 0 18px;min-height:38px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+#__demo_dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:#f5c842;box-shadow:0 0 7px rgba(245,200,66,.55);}
+#__demo_label{color:#f5c842;font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;flex-shrink:0;}
+#__demo_divider{color:rgba(255,255,255,.15);font-size:12px;flex-shrink:0;}
+#__demo_text{color:rgba(255,255,255,.45);font-size:11.5px;line-height:1.45;flex:1 1 160px;}
+#__demo_links{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+#__demo_links a{
+  color:rgba(255,255,255,.38);font-size:11px;text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.14);
+  transition:color .15s,border-color .15s;white-space:nowrap;
+}
+#__demo_links a:hover{color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.4);}
+#__demo_link_sep{color:rgba(255,255,255,.15);font-size:10px;}
+#__demo_close{
+  position:absolute;right:0;top:0;bottom:0;width:40px;
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,.28);font-size:16px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:color .15s;
+}
+#__demo_close:hover{color:rgba(255,255,255,.7);}
+@media(max-width:560px){
+  #__demo_inner{padding:7px 44px 7px 14px;gap:6px;}
+  #__demo_text{font-size:11px;flex:1 1 100%;order:3;}
+  #__demo_dot,#__demo_label{order:1;}
+  #__demo_divider{order:2;}
+  #__demo_links{order:4;}
+}
+</style>
+<div id="__demo_spacer"></div>
+<div id="__demo_notice" role="banner" aria-label="Demo notice">
+  <div id="__demo_inner">
+    <span id="__demo_dot"></span>
+    <span id="__demo_label">Demo</span>
+    <span id="__demo_divider">/</span>
+    <span id="__demo_text">Unofficial remake &mdash; not the real website. All content &amp; trademarks belong to their owners.</span>
+    <div id="__demo_links">
+      <a href="https://benedictjaros.com/impressum" target="_blank" rel="noopener noreferrer">Impressum</a>
+      <span id="__demo_link_sep">&middot;</span>
+      <a href="https://benedictjaros.com/datenschutz" target="_blank" rel="noopener noreferrer">Datenschutz</a>
+    </div>
+  </div>
+  <button id="__demo_close" aria-label="Close demo notice">&#x2715;</button>
+</div>
+<script>
+(function () {
+  var spacer = document.getElementById('__demo_spacer');
+  var b = document.getElementById('__demo_notice');
+  var x = document.getElementById('__demo_close');
+  if (!b || !spacer) return;
+  function sync() { spacer.style.height = b.offsetHeight + 'px'; }
+  function hide() {
+    b.style.display = 'none'; spacer.style.height = '0';
+    try { sessionStorage.setItem('__demo_closed', '1'); } catch (e) {}
+  }
+  try { if (sessionStorage.getItem('__demo_closed')) { b.style.display = 'none'; spacer.style.height = '0'; return; } } catch (e) {}
+  sync();
+  window.addEventListener('resize', function () { if (b.style.display !== 'none') sync(); });
+  if (x) x.addEventListener('click', hide);
+}());
+</script>
+
+
+    <a href="#main" class="skip-link">Zum Hauptinhalt springen</a>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#" class="logo">Infanger</a>
+            
+            <nav class="desktop-nav">
+                <a href="#leistungen">Leistungen</a>
+                <a href="#expertise">Expertise</a>
+                <a href="#qualitaet">Qualität</a>
+                <button class="btn btn-primary btn-trigger-modal" data-modal="termin">
+                    <i data-lucide="calendar"></i> Termin vereinbaren
+                </button>
+            </nav>
+
+            <button class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-overlay">
+        <nav class="mobile-nav-links">
+            <a href="#leistungen">Leistungen</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#qualitaet">Qualität</a>
+            <button class="btn btn-primary btn-trigger-modal" data-modal="termin" style="margin-top: 1rem;">
+                Termin vereinbaren
+            </button>
+        </nav>
+    </div>
+
+    <main id="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <h1 class="reveal">Elektrotechnik mit Weitblick</h1>
+                    <p class="hero-subhead reveal" style="--i:1">
+                        Ihr Elektronik-Experte in Steyr-Land. Als Ihr zuverlässiger Partner in allen Bereichen der Elektrotechnik stehe ich Ihnen seit 2012 mit Kompetenz und Erfahrung zur Seite.
+                    </p>
+                    <div class="reveal" style="--i:2">
+                        <button class="btn btn-primary btn-trigger-modal" data-modal="termin">
+                            Jetzt Termin vereinbaren <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-image-wrapper reveal" style="--i:3">
+                    <img src="https://www.infanger-elektrotechnik.at/wp/wp-content/uploads/slider/cache/383b87da533b2ce7dcdf900c2cec7aed/Elektrotechnik-Infanger-aus-Pfarrkirchen-bei-Bad-Hall-in-Oberoesterreich2.jpg" alt="Modernes Wohnhaus mit Beleuchtung" loading="eager">
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="leistungen" class="services-bg">
+            <div class="container">
+                <div class="reveal">
+                    <h2>Meine Leistungen</h2>
+                    <p class="text-muted" style="max-width: 600px;">Professionelle Lösungen für private und gewerbliche Anforderungen.</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card reveal" style="--i:0">
+                        <i data-lucide="zap" class="service-icon" width="32" height="32"></i>
+                        <h3>Installation</h3>
+                        <p class="text-sm text-muted">Fachgerechte Wartung und Reparatur bestehender elektrischer Anlagen.</p>
+                    </div>
+                    <div class="service-card reveal" style="--i:1">
+                        <i data-lucide="plug" class="service-icon" width="32" height="32"></i>
+                        <h3>Neuinstallation</h3>
+                        <p class="text-sm text-muted">Komplette Planung und Umsetzung für Neubauten und Renovierungen.</p>
+                    </div>
+                    <div class="service-card reveal" style="--i:2">
+                        <i data-lucide="shield-alert" class="service-icon" width="32" height="32"></i>
+                        <h3>Alarmanlagen</h3>
+                        <p class="text-sm text-muted">Sicherheitssysteme zum Schutz Ihres Eigentums in Steyr-Land.</p>
+                    </div>
+                    <div class="service-card reveal" style="--i:3">
+                        <i data-lucide="home" class="service-icon" width="32" height="32"></i>
+                        <h3>Smart Home</h3>
+                        <p class="text-sm text-muted">Intelligente Gebäudesteuerung für mehr Komfort und Energieeffizienz.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise Section 1 -->
+        <section id="expertise">
+            <div class="container split-section">
+                <div class="split-content reveal">
+                    <h2>Vielseitiger und kompetenter Service</h2>
+                    <p>Ich biete Ihnen einen umfassenden Service rund um Elektroinstallationen. Von der ersten Beratung bis zur finalen Umsetzung lege ich größten Wert auf Präzision und Langlebigkeit.</p>
+                    <ul>
+                        <li>Integration moderner LCN-Bussysteme</li>
+                        <li>Energieeffiziente LED-Beleuchtungskonzepte</li>
+                        <li>Sanierung und Anpassung im Altbau</li>
+                    </ul>
+                </div>
+                <div class="split-image reveal" style="--i:1">
+                    <img src="https://www.infanger-elektrotechnik.at/wp/wp-content/uploads/Elektrotechnik-Infanger-aus-Pfarrkirchen-bei-Bad-Hall-in-Oberoesterreich5.jpg" alt="Reinhard Infanger bei der Arbeit" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise Section 2 -->
+        <section class="services-bg">
+            <div class="container split-section reverse">
+                <div class="split-content reveal">
+                    <h2>Professionelle Elektroberatung in Bad Hall</h2>
+                    <p>Bei Elektroinstallationen kommt es oft auf die Details an. Sicherheit steht an erster Stelle. Ich überprüfe Ihre Anlagen und sorge für den aktuellen Stand der Technik.</p>
+                    <ul>
+                        <li>Einbau und Prüfung von FI-Schutzschaltern</li>
+                        <li>Überprüfung von Verteilerkästen</li>
+                        <li>Transparente und ehrliche Beratung vor Ort</li>
+                    </ul>
+                </div>
+                <div class="split-image reveal" style="--i:1">
+                    <img src="https://www.infanger-elektrotechnik.at/wp/wp-content/uploads/Elektrotechnik-Infanger-aus-Pfarrkirchen-bei-Bad-Hall-in-Oberoesterreich7.jpg" alt="Verkabelung eines elektrischen Verteilerkastens" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonial Section -->
+        <section id="qualitaet" class="testimonial-section">
+            <div class="container">
+                <div class="testimonial-content reveal">
+                    <img src="https://www.infanger-elektrotechnik.at/wp/wp-content/uploads/slider5/stars.png" alt="5 Sterne Bewertung" class="stars">
+                    <p class="quote">„Vom ersten Gespräch bis zur Durchführung der Arbeit alles gepasst! Pünktlich, genau und sauber gearbeitet!“</p>
+                    <p class="text-muted">— Zufriedener Kunde aus dem Bezirk Steyr-Land</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo" style="color: white; margin-bottom: 1rem;">Infanger</div>
+                    <p class="footer-text">Elektrotechnik mit Weitblick. Ihr zuverlässiger Partner für Installation, Wartung und Smart Home im Bezirk Steyr-Land.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <div class="footer-contact-item">
+                        <i data-lucide="map-pin" width="18" height="18"></i>
+                        <span>Binderstr 32<br>A-4540 Pfarrkirchen bei Bad Hall</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i data-lucide="phone" width="18" height="18"></i>
+                        <span>+43 650 9782206</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i data-lucide="mail" width="18" height="18"></i>
+                        <span>reini.infanger@gmx.at</span>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Öffnungszeiten</h4>
+                    <div class="footer-contact-item">
+                        <i data-lucide="clock" width="18" height="18"></i>
+                        <span>Mo - Fr: 07:00 - 17:00<br>Sa: 07:00 - 12:00</span>
+                    </div>
+                    <img src="https://www.infanger-elektrotechnik.at/wp/wp-content/themes/rundr-beyer/images/wko.png" alt="WKO Mitglied" class="wko-badge" loading="lazy">
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 Elektrotechnik Reinhard Infanger — All original content, images & trademarks are property of their respective owners. Website rebuilt by Benedict Jaros.</p>
+                <div class="footer-links">
+                    <button class="btn-trigger-modal" data-modal="legal">Impressum</button>
+                    <button class="btn-trigger-modal" data-modal="legal">Datenschutz</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    
+    <!-- Placeholder Modal: Termin -->
+    <div class="modal-backdrop" id="modal-termin" role="dialog" aria-modal="true" aria-labelledby="termin-title">
+        <div class="modal-card">
+            <button class="modal-close" aria-label="Schließen"><i data-lucide="x"></i></button>
+            <h3 id="termin-title">Termin vereinbaren</h3>
+            <p>This feature will be live once the website is launched and configured. Contact us in the meantime — we'd love to hear from you.</p>
+        </div>
+    </div>
+
+    <!-- Legal Notice Modal -->
+    <div class="modal-backdrop" id="modal-legal" role="dialog" aria-modal="true" aria-labelledby="legal-title">
+        <div class="modal-card">
+            <button class="modal-close" aria-label="Schließen"><i data-lucide="x"></i></button>
+            <h3 id="legal-title">Rechtliche Hinweise</h3>
+            <p style="margin-bottom: 1.5rem;">Diese Website ist ein Demo-Remake und wurde nicht von oder für das Unternehmen erstellt. Die Inhalte dienen ausschließlich Demonstrationszwecken. Für unsere eigenen rechtlichen Informationen:</p>
+            <p><a href="https://benedictjaros.com/impressum" target="_blank" style="color: var(--color-accent); text-decoration: underline;">Impressum</a></p>
+            <p><a href="https://benedictjaros.com/datenschutz" target="_blank" style="color: var(--color-accent); text-decoration: underline;">Datenschutz</a></p>
+        </div>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookie-banner">
+        <div class="cookie-content">
+            <div>
+                <h4 style="margin-bottom: 0.5rem;">Wir verwenden Cookies</h4>
+                <p class="text-sm text-muted" style="margin-bottom: 0;">Diese Website verwendet Cookies, um Ihre Erfahrung zu verbessern. Sie können Ihre Zustimmung jederzeit widerrufen.</p>
+            </div>
+            <div class="cookie-actions">
+                <button class="btn btn-outline" id="btn-cookie-decline">Ablehnen</button>
+                <button class="btn btn-primary" id="btn-cookie-accept">Akzeptieren</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Navigation
+        const navToggle = document.querySelector('.nav-toggle');
+        const mobileOverlay = document.querySelector('.mobile-overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        function toggleNav() {
+            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', !isExpanded);
+            navToggle.classList.toggle('is-active');
+            mobileOverlay.classList.toggle('is-open');
+            document.body.style.overflow = isExpanded ? '' : 'hidden';
+        }
+
+        navToggle.addEventListener('click', toggleNav);
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileOverlay.classList.contains('is-open')) {
+                    toggleNav();
+                }
+            });
+        });
+
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOptions = {
+            threshold: 0.12,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Modals
+        const modalTriggers = document.querySelectorAll('.btn-trigger-modal');
+        const modals = document.querySelectorAll('.modal-backdrop');
+        const closeButtons = document.querySelectorAll('.modal-close');
+
+        function openModal(modalId) {
+            const modal = document.getElementById(`modal-${modalId}`);
+            if (modal) {
+                modal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeAllModals() {
+            modals.forEach(modal => {
+                modal.classList.remove('is-open');
+            });
+            // Only restore scroll if mobile menu isn't also open
+            if (!mobileOverlay.classList.contains('is-open')) {
+                document.body.style.overflow = '';
+            }
+        }
+
+        modalTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                // If clicked inside mobile menu, close menu first
+                if (mobileOverlay.classList.contains('is-open')) {
+                    toggleNav();
+                }
+                const modalId = trigger.getAttribute('data-modal');
+                openModal(modalId);
+            });
+        });
+
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', closeAllModals);
+        });
+
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeAllModals();
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeAllModals();
+                if (mobileOverlay.classList.contains('is-open')) {
+                    toggleNav();
+                }
+            }
+        });
+
+        // Cookie Banner
+        const cookieBanner = document.getElementById('cookie-banner');
+        const btnAccept = document.getElementById('btn-cookie-accept');
+        const btnDecline = document.getElementById('btn-cookie-decline');
+
+        function handleCookie(choice) {
+            localStorage.setItem('cookie_consent', choice);
+            cookieBanner.classList.remove('is-visible');
+        }
+
+        if (!localStorage.getItem('cookie_consent')) {
+            // Slight delay for smooth entrance
+            setTimeout(() => {
+                cookieBanner.classList.add('is-visible');
+            }, 1000);
+        }
+
+        btnAccept.addEventListener('click', () => handleCookie('accepted'));
+        btnDecline.addEventListener('click', () => handleCookie('declined'));
+
+    </script>
+</body>
+</html>
